@@ -13,7 +13,7 @@ def count_tree_collisions(map, xslope = 3, yslope = 1):
         count = (count+1) if(hit_tree(level, x % len(level))) else count
         x += xslope
         try:
-            for i in range(0, yslope):
+            for _ in range(0, yslope):
                 level = f.readline().replace("\n", "")
         except:
             break
