@@ -131,4 +131,3 @@ done_seatmap = simulate_seat_picking(seatmap)
 done_seatmap2 = simulate_seat_picking(seatmap,count_occupied_seats_part2, 5)
 print(count_full_seats(done_seatmap))
 print(count_full_seats(done_seatmap2))
-
