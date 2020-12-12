@@ -53,11 +53,9 @@ def execute_travel_part2(instructions):
                 waypoint = [waypoint[1], -waypoint[0]]
         if d == "F":
             ship_coords = [ship_coords[0]+n*waypoint[0],ship_coords[1]+n*waypoint[1]]
-    print(waypoint)
     return ship_coords
 
 instructions = init_instructions("./puzzle_inputs/day12.input")
-print(instructions)
 new_coords = execute_travel(instructions)
 print(abs(new_coords[0]) + abs(new_coords[1]))
 new_coords_part2 = execute_travel_part2(instructions)
