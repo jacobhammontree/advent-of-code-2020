@@ -68,4 +68,3 @@ busfile2 = init_bus_file("./puzzle_inputs/day13.input", False)
 print(busfile2)
 timestamp = find_cont_timestamp(busfile2)
 print(timestamp)
-
