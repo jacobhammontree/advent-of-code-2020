@@ -12,7 +12,10 @@ def flatten(lst):
         for e in l:
             ret.append(e)
     return ret
-
+# args
+#   ticket_filename (string) = name of the file that describes tickets and rules
+# returns
+#   rules (dictionary) PICK UP HERE
 def init_rules_and_tickets(ticket_filename):
     f = open(ticket_filename)
     rules = {}
@@ -53,6 +56,7 @@ def x_in_any(x, l_ranges):
 def calc_scanning_error_rate(rules, nearby_tickets):
     ret = 0
     valid_tickets=[]
+    # get list of all ranges in a single list
     flat_ranges = flatten([v for v in rules.values()])
     for t in nearby_tickets:
         valid_ticket = True
@@ -70,21 +74,34 @@ def calc_scanning_error_rate(rules, nearby_tickets):
 def all_ticket_values_match_range(t_nums, ranges):
     return all([n in ranges[0] or n in ranges[1] for n in t_nums])
 
+# args
+#   valid tickets = list of valid tickets (which are lists of numbers)
+#   rules = dictionary<string->list<range>>
+# returns
+#   ticket_positions_poss = dict<string->list<int>>
+#       key<string> = name of ticket item
+#       value<list<int>> = list of possible ticket positions for key
 def get_possible_ticket_positions(valid_tickets, rules):
     ticket_positions_poss = defaultdict(list)
     for r_name,r_ranges in rules.items():
         for i in range(0, len(my_ticket)):
+            # if all ticket items for all tickets fall within the ranges of this rule, add index i as a possibility for this rule
             if(all_ticket_values_match_range([t[i] for t in valid_tickets], r_ranges)):
                 ticket_positions_poss[r_name].append(i)
     return ticket_positions_poss
 
 def get_ticket_positions(ticket_positions_poss):
     final_ticket_positions = {}
+    # iterate while there are still possibilities
     while ticket_positions_poss:
+        # returns a list of all items that have one possible index
         known_pos = [[t,v[0]] for t,v in ticket_positions_poss.items() if len(v) == 1]
         for kp in known_pos:
+            # record the known index
             final_ticket_positions[kp[0]] = kp[1]
+            # remove this ticket from the unknown (possible) list, since we know its position
             ticket_positions_poss.pop(kp[0])
+            # for all other tickets, remove index i as a possibility
             for t_name,t_poss in ticket_positions_poss.items():
                 if kp[1] in t_poss:
                     t_poss.remove(kp[1])
