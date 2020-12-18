@@ -2,6 +2,7 @@ import sys
 import re
 from math import ceil,floor
 from copy import deepcopy
+import time
 sys.path.append("./")
 
 def init_bus_file(filename, part1 = True):
@@ -64,7 +65,9 @@ def find_cont_timestamp(buses):
 busfile = init_bus_file("./puzzle_inputs/day13.input")
 next_bus = find_next_bus(busfile)
 print(next_bus[0]*next_bus[1])
+t0 = time.time()
 busfile2 = init_bus_file("./puzzle_inputs/day13.input", False)
-print(busfile2)
 timestamp = find_cont_timestamp(busfile2)
+t1 = time.time()
+print("d13p2 time: ", t1-t0)
 print(timestamp)
